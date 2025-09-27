@@ -9,20 +9,24 @@ This repository contains my personal Claude Code commands and configuration file
 ## Setup on New Machine
 
 ```bash
-# Clone this repo to your Claude config directory
-git clone <your-repo-url> ~/.claude-config
-cd ~/.claude-config
+# Automated setup (recommended)
+curl -sSL https://raw.githubusercontent.com/antonkor/claude-commands/master/setup-new-machine.sh | bash
 
-# Create symlinks to actual Claude directory
-ln -sf ~/.claude-config/commands ~/.claude/commands
-ln -sf ~/.claude-config/settings.json ~/.claude/settings.json
+# Or manual setup
+git clone https://github.com/antonkor/claude-commands.git ~/.claude
+chmod +x ~/.claude/*.sh
 ```
 
-## Updating Commands
+## Syncing Commands
 
 ```bash
-cd ~/.claude
-git add .
-git commit -m "Update Claude commands"
-git push
+# Push your changes
+~/.claude/sync-push.sh
+
+# Pull latest changes
+~/.claude/sync-pull.sh
 ```
+
+## Repository
+
+🔗 **GitHub**: https://github.com/antonkor/claude-commands
