@@ -21,3 +21,5 @@ Format the journal entry with:
 6. Add chat log summary if applicable
 
 Use intelligent content analysis to determine the most appropriate section labels based on context, keywords, and content type. Be predictive and contextual in your labeling decisions.
+
+At the end of each journal entry, add a section titled "## 💡 Insights" with exactly 2 key insights about the original message - what it reveals about patterns, implications, or deeper meaning.
