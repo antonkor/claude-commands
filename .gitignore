@@ -1,0 +1,16 @@
+# Exclude sensitive or machine-specific files
+settings.local.json
+*.log
+.DS_Store
+*.tmp
+
+# Exclude all project conversation logs
+projects/
+# Exclude local config
+settings.json
+
+# Only include commands and agents
+!commands/
+!agents/
+!README.md
+!CLAUDE.md
