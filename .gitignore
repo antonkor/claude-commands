@@ -14,3 +14,10 @@ settings.json
 !agents/
 !README.md
 !CLAUDE.md
+/file-history
+/shell-snapshots
+/statsig
+/todos
+history.jsonl
+ide/26002.lock
+/ide

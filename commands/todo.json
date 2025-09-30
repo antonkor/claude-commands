@@ -1,0 +1,27 @@
+{
+  "command": "todo",
+  "description": "Advanced todo management with project organization and time tracking",
+  "version": "1.0.0",
+  "author": "Anton K.",
+  "category": "productivity",
+  "settings": {
+    "defaultProject": "ps-lang",
+    "defaultPriority": "medium",
+    "timeFormat": "24h",
+    "dateFormat": "YYYY-MM-DD",
+    "autoArchive": true,
+    "archiveAfterDays": 30
+  },
+  "integrations": {
+    "todoWrite": true,
+    "git": true,
+    "timeTracking": true,
+    "analytics": true
+  },
+  "fileLocations": {
+    "active": "/todos/active.json",
+    "completed": "/todos/completed.json",
+    "projects": "/todos/projects/",
+    "archive": "/todos/archive/"
+  }
+}

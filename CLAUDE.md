@@ -18,8 +18,10 @@
 
 ## Development Server Rules - STRICT ENFORCEMENT
 - NEVER run `npm run dev`, `yarn dev`, or any development servers without explicit user permission
+- NEVER run `npm run build`, `yarn build`, or any build commands without explicit user permission
 - NEVER run dev servers in background mode unless explicitly requested
 - If a dev server is needed for testing, inform user and ask them to start it manually
+- If build verification is needed, inform user and ask them to run build manually
 - Only check server status with commands like `netstat` or `ps`, never auto-start servers
 - ALWAYS ask before starting any long-running processes
 
@@ -27,6 +29,9 @@
 - npm run dev
 - yarn dev
 - npm start
+- npm run build
+- yarn build
+- Any build or compilation commands
 - Any background server processes
 - Any commands that start long-running services
 
@@ -36,7 +41,49 @@
 - Remove ALL mentions of "Claude", "Generated with Claude Code", or any AI agent branding from commits
 - Keep commits clean without AI attribution
 
+## Version Management Workflow
+- BEFORE every commit, ask user if they want to increment version number
+- When user says yes to version increment, automatically update ALL version references:
+  * Current displayed version (UI components)
+  * Analytics tracking version parameters
+  * Feedback form version references
+  * Thank you messages (use NEXT version, e.g., if current is v0.5, thank you shows v0.5.1)
+  * API version tracking
+  * data-vibe component version attributes
+- Version increment pattern: v0.5 → v0.5.1 → v0.5.2 OR v0.5 → v0.6 (user chooses)
+- Always ask "Should we increment version to [next version]?" before each commit
+- Update version in these locations:
+  * components/hero-video.tsx (display version, analytics, feedback forms)
+  * Any data-vibe attributes that reference version
+  * API endpoints that track version
+  * Documentation that mentions current version
+
 ## Agent Delegation Rules
 - `/log` commands: Handle directly (main Claude), do NOT delegate to content curator agent
 - `/blog` commands: Delegate to content curator agent for market research, SEO optimization, and polished content creation
 - Content curator agent should ONLY be used for public-facing content creation, not internal logging or documentation
+
+## Custom Slash Commands - Scope Guidance
+When creating new slash commands, always start by determining the appropriate scope:
+
+**User-Level Commands** (stored in `C:\Users\anton\.claude\commands.json`):
+- Generic/reusable across all projects
+- Research and analysis workflows
+- General documentation patterns
+- Universal development workflows
+- Examples: `/research`, generic logging patterns
+
+**Project-Level Commands** (stored in `<project>/.claude/commands.json`):
+- Project-specific workflows
+- Custom commit processes with project conventions
+- Domain-specific documentation
+- Project tooling integration
+- Examples: `/commit` (with FAQ generation), project-specific tests
+
+**Decision Matrix:**
+- Is it useful across ALL projects? → User-level
+- Does it depend on project structure? → Project-level
+- Does it use project-specific conventions? → Project-level
+- Is it a generic pattern that adapts to context? → User-level
+
+**Always state the scope recommendation FIRST** when creating or discussing custom commands.

@@ -14,28 +14,92 @@ Comprehensive commit workflow with automatic logging, dev estimates, and blog id
 ## Workflow Steps
 
 ### 1. Pre-Commit Log Generation
-Create or update today's log with:
-- Summary of all changes since last commit
-- File-by-file breakdown of modifications
-- Dev estimate for work done since last commit
-- Key technical decisions made
-- Problems solved and patterns discovered
+
+**Create log in `/logs/` directory with format `mm-dd-short-feature-name.md`**
+
+- Use current date (mm-dd format)
+- Include short, descriptive feature name (e.g., `09-29-posthog-subscriptions.md`)
+- Include prompt timeline, detailed prompts, code changes, design decisions
+
+**IMPORTANT: Also create AI meta tags JSON file:**
+- Filename: `mm-dd-short-feature-name.meta.json`
+- Use schema from `/logs/LOG-META-SCHEMA.md`
+- Include all metrics from session
+
+**Log AI Meta Tags Schema** (`{feature-name}.meta.json`):
+```json
+{
+  "session": {
+    "date": "2025-09-29",
+    "duration_minutes": 120,
+    "agent": "Claude Sonnet 4.5",
+    "feature_slug": "feature-name"
+  },
+  "work_classification": {
+    "type": "feature|bug_fix|refactor|docs|optimization",
+    "complexity": "trivial|simple|moderate|complex|very_complex",
+    "scope": "component|feature|system|architecture"
+  },
+  "development_metrics": {
+    "estimated_time_without_ai_hours": 12.0,
+    "actual_time_with_ai_hours": 3.0,
+    "productivity_multiplier": 4.0,
+    "files_created": 5,
+    "files_modified": 3,
+    "lines_added": 250,
+    "lines_removed": 50
+  },
+  "technical_stack": {
+    "primary_technologies": ["Next.js", "PostHog"],
+    "libraries_added": ["resend"],
+    "apis_integrated": ["PostHog", "Resend"]
+  },
+  "content_potential": {
+    "blog_worthy": true,
+    "blog_topics": ["AI-Assisted Development", "PostHog Integration"],
+    "tutorial_potential": "high",
+    "documentation_quality": "excellent"
+  },
+  "ai_assistance": {
+    "prompts_count": 15,
+    "context_switches": 3,
+    "key_insights": [
+      "Used Schema.org for SEO",
+      "Dual-file approach for FAQs"
+    ]
+  }
+}
+```
+
+**FAQ Generation**: Based on user prompts in this session, create 2-3 FAQ items in `/faqs/` directory:
+- Each FAQ gets two files:
+  - `{slug}.md` - Human-readable markdown with question, answer, code examples, related links
+  - `{slug}.meta.json` - AI meta tags with Schema.org FAQPage format
+- AI meta tags should include:
+  - persona_relevance (developer, designer, founder, marketer scores 0-1)
+  - difficulty (beginner, intermediate, advanced)
+  - implementation_time
+  - tags, seo_keywords, search_intent
+  - agentic_usecase, conversion_goal, business_value
+- Update `/faqs/index.json` with new FAQ entries
+
+**Update INDEX.md**: Add new log entry to `/logs/INDEX.md`
 
 ### 2. Dev Estimate Calculation
-Include in log:
+
+Extract from meta.json and include in commit message:
 ```markdown
 📊 Dev Estimate (Since Last Commit):
-   • Actual work time: [X hours based on session duration]
-   • Traditional estimate: [Y hours based on complexity]
-   • Time savings: [Z.X]x multiplier
-   • AI agent: [Agent name and version]
-   • Files modified: [count]
-   • Lines changed: [+added/-removed]
-   • Test coverage: [if applicable]
+   • Actual work time: [X hours from actual_time_with_ai_hours]
+   • Traditional estimate: [Y hours from estimated_time_without_ai_hours]
+   • Time savings: [productivity_multiplier]x multiplier
+   • AI agent: [agent from meta.json]
+   • Files modified: [files_created + files_modified]
+   • Lines changed: [+lines_added/-lines_removed]
 ```
 
 ### 3. Blog Post Ideation
-Generate 3 blog post ideas from current work:
+Generate from meta.json `content_potential.blog_topics`:
 
 ```markdown
 ## Blog Post Ideas 📝
@@ -66,6 +130,11 @@ Analyze uncommitted changes:
 ### 5. Commit Message Draft
 Generate structured commit message:
 
+**IMPORTANT: Do NOT include AI attribution**
+- ❌ Do NOT add "Co-Authored-By: Claude"
+- ❌ Do NOT add "Generated with Claude Code" footer
+- ✅ Keep commits clean without AI branding
+
 ```
 [type]: [concise description]
 
@@ -83,10 +152,6 @@ Changes:
    • Traditional estimate: [Y hours]
    • Time savings: [Z.X]x multiplier
    • AI agent: [Agent name and version]
-
-🤖 Generated with [Claude Code](https://claude.ai/code)
-
-Co-Authored-By: Claude <noreply@anthropic.com>
 ```
 
 ### 6. Review Gate
