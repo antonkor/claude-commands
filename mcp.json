@@ -10,7 +10,7 @@
         "Authorization:${POSTHOG_AUTH_HEADER}"
       ],
       "env": {
-        "POSTHOG_AUTH_HEADER": "Bearer {phx_VbyCzosXWpi73UyrsmuxeltWCegbOv4jvXfDJYbB9jKf87J}"
+        "POSTHOG_AUTH_HEADER": "Bearer phx_VbyCzosXWpi73UyrsmuxeltWCegbOv4jvXfDJYbB9jKf87J"
       }
     }
   }
